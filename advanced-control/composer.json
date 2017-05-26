@@ -1,0 +1,15 @@
+{
+    "name": "boliveirasilva/advanced_ticket_control",
+    "description": "Plugin for advanced ticket maintenance options.",
+    "license": "GPL-2.0",
+    "autoload": {
+        "psr-4": {
+            "osTransfer\\": "app/TicketTransfer/"
+        }
+    },
+    "require": {
+        "php": ">=5.4",
+        "ext-mysqli": "*",
+        "twig/twig": "^1.30"
+    }
+}

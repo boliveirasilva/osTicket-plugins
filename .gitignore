@@ -16,4 +16,4 @@ stage
 lib/
 composer.phar
 composer.lock
-composer.json
+/composer.json

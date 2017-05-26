@@ -1,0 +1,141 @@
+{% macro header() %}
+    <li class="active"><a href="#main"><i class="icon-gear"></i> Main</a></li>
+{% endmacro %}
+
+{% macro content(data) %}
+    <div class="tab_content" id="main">
+        {% set db_prefix = 'ost_' %}
+        {% if data.transfer_db_host.ht.value %}
+            {% set pwd_protection = data.saved_pass_message %}
+            {% set db_prefix = data.transfer_db_prefix.ht.value %}
+        {% endif %}
+
+        <table class="form_table settings_table" width="940" border="0" cellspacing="0" cellpadding="2">
+            <tbody>
+            <tr>
+                <th colspan="2">
+                    <em><i class="" href="#transfer_db_host"></i>
+                        <b>Destination Data</b>:<br />This section is all about the
+                        transfer destination database connection information</em>
+                </th>
+            </tr>
+            <tr>
+                <td class="required">
+                    Host:
+                    <span class="error"> *</span>
+                </td>
+                <td>
+                    <input type="text" name="transfer_db_host" size="30"
+                           value="{{ data.transfer_db_host.ht.value }}" required="required" />
+                    <i class="help-tip icon-question-sign" href="#transfer_db_host"></i>
+                    <div class="error"></div>
+                </td>
+            </tr>
+            <tr>
+                <td class="required">
+                    Name:
+                    <span class="error"> *</span>
+                </td>
+                <td>
+                    <input type="text" name="transfer_db_name" size="30"
+                           value="{{ data.transfer_db_name.ht.value }}" required="required" />
+                    <i class="help-tip icon-question-sign" href="#transfer_db_name"></i>
+                    <div class="error"></div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Table Prefix:
+                    <span class="error"> </span>
+                </td>
+                <td>
+                    <input type="text" name="transfer_db_prefix" size="30" value="{{ db_prefix }}" />
+                    <i class="help-tip icon-question-sign" href="#transfer_db_prefix"></i>
+                    <div class="error"></div>
+                </td>
+            </tr>
+            <tr>
+                <td class="required">
+                    Username:
+                    <span class="error"> *</span>
+                </td>
+                <td>
+                    <input type="text" name="transfer_db_user" size="30"
+                           value="{{ data.transfer_db_user.ht.value }}" required="required" />
+                    <i class="help-tip icon-question-sign" href="#transfer_db_user"></i>
+                    <div class="error"></div>
+                </td>
+            </tr>
+            <tr>
+                <td class="required">
+                    Password:
+                    <span class="error">
+                    {% if not pwd_protection is defined %} *{% endif %}
+                    </span>
+                </td>
+                <td>
+                    <input type="password" name="transfer_db_password" size="30"
+                           placeholder="{{ pwd_protection }}"
+                            {% if not pwd_protection is defined %}
+                                required="required"
+                            {% endif %}
+                    />
+                    <i class="help-tip icon-question-sign" href="#transfer_db_password"></i>
+                    <div class="error"></div>
+                </td>
+            </tr>
+            <tr>
+                <th colspan="2">
+                    <em>
+                        <b>General Options</b>:<br />
+                        Extra configuration for the ticket transference.
+                    </em>
+                </th>
+            </tr>
+            <tr>
+                <td>Responsibility:</td>
+                <td>
+                    <select name="responsibility" id="responsibility">
+                        <option value="0" selected="selected">— System —</option>
+                        {#{% for response in data.responsibility.items %}#}
+                        {#<option value="{{ response.value }}"#}
+                        {#{% if response.value == data.responsibility.value %}#}
+                        {#selected="selected"#}
+                        {#{% endif %}#}
+                        {#>#}
+                        {#{{ response.name }}#}
+                        {#</option>#}
+                        {#{% endfor %}#}
+                    </select>
+                    <font class="error">&nbsp;</font>
+                    <i class="help-tip icon-question-sign" href="#responsibility"></i>
+                </td>
+            </tr>
+            <tr>
+                <td>Linked Tickets:</td>
+                <td>
+                    <input type="checkbox" name="linked_tickets"
+                            {% if data.linked_tickets.ht.value %}
+                                checked="checked"
+                            {% endif %}
+                    />
+                    Create an link between the tickets and make it accessible.  <font class="error">&nbsp;</font>
+                    <i class="help-tip icon-question-sign" href="#linked_tickets"></i>
+                </td>
+            </tr>
+            <tr>
+                <td>Helpdesk Status:</td>
+                <td>
+                    <input type="checkbox" name="system_offline"
+                            {% if data.system_offline.ht.value %}
+                                checked="checked"
+                            {% endif %}
+                    />
+                    Put the system offline while transferring the tickets.  <font class="error">&nbsp;</font>
+                    <i class="help-tip icon-question-sign" href="#system_offline"></i>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+{% endmacro %}

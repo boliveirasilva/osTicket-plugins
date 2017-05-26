@@ -1,0 +1,20 @@
+{% set tab_headers = '' %}
+{% set tab_contents = '' %}
+
+{% for tab in tabs %}
+    {% import tab as tab_config %}
+
+    {% set tab_headers = tab_headers ~ tab_config.header() %}
+    {% set tab_contents = tab_contents ~ tab_config.content(plugin_data) %}
+{% endfor %}
+
+<ul class="clean tabs">
+    {% block tab_header %}
+        {{ tab_headers|raw }}
+    {% endblock %}
+</ul>
+
+{% block tab_content %}
+    {{ tab_contents|raw }}
+{% endblock %}
+
